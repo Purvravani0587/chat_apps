@@ -1,7 +1,10 @@
 import 'package:chat_apps/login/register.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+
+import '../auth/google.dart';
 
 class login_screen extends StatefulWidget {
   const login_screen({super.key});
@@ -95,10 +98,7 @@ class _login_screenState extends State<login_screen> {
                       style: TextStyle(color: Colors.white,fontSize: 25),
                     )),
               ),
-              Text(
-                "---------------------------or----------------------------",
-                style: TextStyle(fontSize: 30, color: Colors.black),
-              ),
+
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextButton(
@@ -130,7 +130,7 @@ class _login_screenState extends State<login_screen> {
                   child: SignInButton(
                     Buttons.Google,
                     onPressed: () {
-
+                      signInWithGoogle();
                     },
                   ),
                 ),
@@ -142,7 +142,9 @@ class _login_screenState extends State<login_screen> {
                   width: 200,
                   child: SignInButton(
                     Buttons.Facebook,
-                    onPressed: () {},
+                    onPressed: () {
+                      FacebookAuth.instance.login();
+                    },
                   ),
                 ),
               ),
