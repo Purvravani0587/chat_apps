@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+
+import '../auth/google.dart';
 
 class Register_screen extends StatefulWidget {
   const Register_screen({super.key});
@@ -125,7 +128,9 @@ class _Register_screenState extends State<Register_screen> {
                   width: 200,
                   child: SignInButton(
                     Buttons.Google,
-                    onPressed: () {},
+                    onPressed: () {
+                      signInWithGoogle();
+                    },
                   ),
                 ),
               ),
@@ -136,7 +141,10 @@ class _Register_screenState extends State<Register_screen> {
                   width: 200,
                   child: SignInButton(
                     Buttons.Facebook,
-                    onPressed: () {},
+                    onPressed: () {
+                      FacebookAuth.instance.login();
+
+                    },
                   ),
                 ),
               ),

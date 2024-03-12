@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 
 import '../auth/google.dart';
+import '../config/database/db.dart';
 
 class login_screen extends StatefulWidget {
   const login_screen({super.key});
@@ -14,6 +15,16 @@ class login_screen extends StatefulWidget {
 }
 
 class _login_screenState extends State<login_screen> {
+  TextEditingController email = TextEditingController();
+  TextEditingController Password = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    get();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,15 +36,16 @@ class _login_screenState extends State<login_screen> {
                 "Login here",
                 style: TextStyle(fontSize: 35, color: Colors.blue.shade600),
               ),
-              Text(
+              const Text(
                 "Welcome back you've \nbeen missed!",
                 style: TextStyle(fontSize: 25),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: email,
                   cursorColor: Colors.black,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hoverColor: Colors.white,
                       label: Text(
                         "Email",
@@ -54,9 +66,10 @@ class _login_screenState extends State<login_screen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: Password,
                   obscureText: true,
                   cursorColor: Colors.black,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hoverColor: Colors.black,
                       label: Text(
                         "password",
@@ -74,9 +87,9 @@ class _login_screenState extends State<login_screen> {
                           borderSide: BorderSide(color: Colors.black))),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                     width: double.infinity,
                     child: Text(
                       "Forget Password?",
@@ -85,38 +98,39 @@ class _login_screenState extends State<login_screen> {
                     )),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         fixedSize: MaterialStatePropertyAll(Size(300, 50))),
-                    onPressed: () {
-
+                    onPressed: () async {
+                      insert_data(email.text,Password.text);
                     },
-                    child: Text(
+                    child: const Text(
                       "Login",
-                      style: TextStyle(color: Colors.white,fontSize: 25),
-                    )),
-              ),
-
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.white),
-                        fixedSize: MaterialStatePropertyAll(Size(300, 50))),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return Register_screen();
-                      },));
-                    },
-                    child: Text(
-                      "Create new account",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.white, fontSize: 25),
                     )),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                    style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.white),
+                        fixedSize: MaterialStatePropertyAll(Size(300, 50))),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const Register_screen();
+                        },
+                      ));
+                    },
+                    child: const Text(
+                      "Create new account",
+                      style: TextStyle(color: Colors.black),
+                    )),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Or contiune with",
                   style: TextStyle(color: Colors.blue),
@@ -124,7 +138,7 @@ class _login_screenState extends State<login_screen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: 200,
                   child: SignInButton(
@@ -137,7 +151,7 @@ class _login_screenState extends State<login_screen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: 200,
                   child: SignInButton(
@@ -150,7 +164,7 @@ class _login_screenState extends State<login_screen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: 200,
                   child: SignInButton(
