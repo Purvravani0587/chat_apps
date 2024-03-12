@@ -77,7 +77,7 @@ class _login_screenState extends State<login_screen> {
                           borderSide: BorderSide(color: Colors.black))),
                 ),
               ),
-              Padding(padding: EdgeInsets.all(8.0),
+              Padding(padding: const EdgeInsets.all(8.0),
                 child: TextField(keyboardType: TextInputType.visiblePassword,
                   obscureText: _obscured ? false : true,
                   focusNode: textFieldFocusNode,
@@ -93,7 +93,7 @@ class _login_screenState extends State<login_screen> {
                       borderRadius: BorderRadius.circular(
                           12), // Apply corner radius
                     ),
-                    prefixIcon: Icon(Icons.lock_rounded, size: 24),
+                    prefixIcon: const Icon(Icons.lock_rounded, size: 24),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                       child: GestureDetector(
