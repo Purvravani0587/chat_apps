@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home/contact_screen.dart';
+
 class Home_screen extends StatefulWidget {
   const Home_screen({super.key});
 
@@ -19,7 +21,9 @@ class _Home_screenState extends State<Home_screen> {
           height: 50,
           child: Row(
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+              IconButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Contact(),));
+              }, icon: Icon(Icons.add)),
               Text("Add contact")
             ],
           ),

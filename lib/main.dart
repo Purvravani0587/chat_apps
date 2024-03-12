@@ -1,4 +1,5 @@
 import 'package:chat_apps/login/login_screen.dart';
+import 'package:chat_apps/scren/home/contact_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,6 @@ void main()  {
   // );
   runApp(MaterialApp(theme: ThemeData(
       textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white))),
-    home: First_screen(),
+    home: Contact(),
   ));
 }

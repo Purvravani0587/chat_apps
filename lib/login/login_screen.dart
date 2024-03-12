@@ -54,29 +54,25 @@ class _login_screenState extends State<login_screen> {
                 "Welcome back you've \nbeen missed!",
                 style: TextStyle(fontSize: 25),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: email,
-                  cursorColor: Colors.black,
-                  decoration: const InputDecoration(
-                      hoverColor: Colors.white,
-                      label: Text(
-                        "Email",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      hintText: "abc@gmail.com",
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.black,
-                      ),
-                      focusColor: Colors.black,
-                      fillColor: Colors.black,
-                      hintStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black))),
-                ),
-              ),
+              Padding(padding: const EdgeInsets.all(8.0),
+                child: TextField(keyboardType: TextInputType.visiblePassword,
+
+                  focusNode: textFieldFocusNode,
+                  decoration: InputDecoration(
+
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    //Hides label on focus or if filled
+                    labelText: "Email",
+
+                    // Reduces height a bit
+                    border: OutlineInputBorder(
+                      // borderSide: BorderSide.none,              // No border
+                      borderRadius: BorderRadius.circular(
+                          12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.email, size: 24),
+
+                  ),),),
               Padding(padding: const EdgeInsets.all(8.0),
                 child: TextField(keyboardType: TextInputType.visiblePassword,
                   obscureText: _obscured ? false : true,
