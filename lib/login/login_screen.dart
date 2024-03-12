@@ -18,12 +18,26 @@ class _login_screenState extends State<login_screen> {
   TextEditingController email = TextEditingController();
   TextEditingController Password = TextEditingController();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    get();
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   get();
+  // }
+  final textFieldFocusNode = FocusNode();
+  bool _obscured = false;
+
+  void _toggleObscured() {
+    setState(() {
+      _obscured = !_obscured;
+      if (textFieldFocusNode.hasPrimaryFocus)
+        return; // If focus is on text field, dont unfocus
+      textFieldFocusNode.canRequestFocus =
+      false; // Prevents focus if tap on eye
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,30 +77,36 @@ class _login_screenState extends State<login_screen> {
                           borderSide: BorderSide(color: Colors.black))),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: Password,
-                  obscureText: true,
-                  cursorColor: Colors.black,
-                  decoration: const InputDecoration(
-                      hoverColor: Colors.black,
-                      label: Text(
-                        "password",
-                        style: TextStyle(color: Colors.black),
+              Padding(padding: EdgeInsets.all(8.0),
+                child: TextField(keyboardType: TextInputType.visiblePassword,
+                  obscureText: _obscured ? false : true,
+                  focusNode: textFieldFocusNode,
+                  decoration: InputDecoration(
+                    helperText: 'No more than 8 characters.',
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    //Hides label on focus or if filled
+                    labelText: "Password",
+
+                    // Reduces height a bit
+                    border: OutlineInputBorder(
+                      // borderSide: BorderSide.none,              // No border
+                      borderRadius: BorderRadius.circular(
+                          12), // Apply corner radius
+                    ),
+                    prefixIcon: Icon(Icons.lock_rounded, size: 24),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                      child: GestureDetector(
+                        onTap: _toggleObscured,
+                        child: Icon(
+                          _obscured
+                              ? Icons.visibility_rounded
+                              : Icons.visibility_off_rounded,
+                          size: 24,
+                        ),
                       ),
-                      hintText: "****",
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.black,
-                      ),
-                      focusColor: Colors.black,
-                      fillColor: Colors.black,
-                      hintStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black))),
-                ),
-              ),
+                    ),
+                  ),),),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(
@@ -104,7 +124,7 @@ class _login_screenState extends State<login_screen> {
                         backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         fixedSize: MaterialStatePropertyAll(Size(300, 50))),
                     onPressed: () async {
-                      insert_data(email.text,Password.text);
+                      // insert_data(email.text,Password.text);
                     },
                     child: const Text(
                       "Login",

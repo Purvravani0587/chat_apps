@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'scren/first_screen.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-
-  );
+void main()  {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //
+  // );
   runApp(MaterialApp(theme: ThemeData(
       textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white))),
     home: First_screen(),
