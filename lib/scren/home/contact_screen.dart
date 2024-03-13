@@ -41,7 +41,10 @@ class _ContactState extends State<Contact> {
                             backgroundColor:
                                 MaterialStatePropertyAll(Colors.green)),
                         onPressed: () {},
-                        child: Text("Save",style: TextStyle(color: Colors.white),)),
+                        child: Text(
+                          "Save",
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ],
                   content: Text("Are you sure this contact is save "),
                 );
@@ -56,140 +59,170 @@ class _ContactState extends State<Contact> {
             'Save data',
             style: TextStyle(color: Colors.white),
           )),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      actions: [
-                        TextButton(
-                            onPressed: () async {
-                              image = await picker.pickImage(
-                                  source: ImageSource.camera);
-                              Navigator.pop(context);
-                              setState(() {
-
-                              });
-                            },
-                            child: Text("Camera")),
-                        TextButton(
-                            onPressed: () async {
-                              image = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              Navigator.pop(context);
-                              setState(() {
-
-                              });
-
-                            },
-                            child: Text("gallary")),
-                      ],
-                      content: Text("Upload your pic.."),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  image = await picker.pickImage(
+                                      source: ImageSource.camera);
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text("Camera")),
+                            TextButton(
+                                onPressed: () async {
+                                  image = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                child: Text("gallary")),
+                          ],
+                          content: Text("Upload your pic.."),
+                        );
+                      },
                     );
+                    setState(() {});
                   },
-                );
-                setState(() {});
-              },
-              child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: (image != null)
-                      ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(width: 2, color: Colors.black),
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: FileImage(File("${image!.path}"))))
-                      : BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(width: 2, color: Colors.black),
-                          image: DecorationImage(
-                              image: AssetImage("image/Unknown.png")))),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: "Enter First name",
-                border: OutlineInputBorder(
-                  borderRadius:
+                  child: Container(
+                      height: 100,
+                      width: 100,
+                      decoration: (image != null)
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(width: 2, color: Colors.black),
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: FileImage(File("${image!.path}"))))
+                          : BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(width: 2, color: Colors.black),
+                              image: DecorationImage(
+                                  image: AssetImage("image/Unknown.png")))),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Enter First name",
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.account_circle, size: 24),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Enter Last name",
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.account_circle, size: 24),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IntlPhoneField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.phone),
+                    labelText: 'Phone Number',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
+                  ),
+                  initialCountryCode: 'IN',
+                  onChanged: (phone) {
+                    print(phone.completeNumber);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Enter Email",
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.email, size: 24),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Groups",
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.groups, size: 24),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Work info",
+                    border: OutlineInputBorder(
+                      borderRadius:
                       BorderRadius.circular(12), // Apply corner radius
+                    ),
+                    prefixIcon: const Icon(Icons.work, size: 24),
+                  ),
                 ),
-                prefixIcon: const Icon(Icons.account_circle, size: 24),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: "Enter Last name",
-                border: OutlineInputBorder(
-                  borderRadius:
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(maxLines: 5,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    // floatingLabelBehavior: FloatingLabelBehavior.never,
+                    labelText: "Address",
+
+                    border: OutlineInputBorder(
+                      borderRadius:
                       BorderRadius.circular(12), // Apply corner radius
-                ),
-                prefixIcon: const Icon(Icons.account_circle, size: 24),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IntlPhoneField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.phone),
-                labelText: 'Phone Number',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(),
+                    ),
+                    prefixIcon: const Icon(Icons.location_pin, size: 24),
+                  ),
                 ),
               ),
-              initialCountryCode: 'IN',
-              onChanged: (phone) {
-                print(phone.completeNumber);
-              },
-            ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: "Enter Email",
-                border: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(12), // Apply corner radius
-                ),
-                prefixIcon: const Icon(Icons.email, size: 24),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: "Groups",
-                border: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(12), // Apply corner radius
-                ),
-                prefixIcon: const Icon(Icons.groups, size: 24),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

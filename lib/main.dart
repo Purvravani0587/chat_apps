@@ -10,7 +10,7 @@ void main()  {
   // await Firebase.initializeApp(
   //
   // );
-  runApp(MaterialApp(theme: ThemeData(
+  runApp(MaterialApp(debugShowCheckedModeBanner: false,theme: ThemeData(
       textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white))),
     home: Contact(),
   ));
