@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class Contact extends StatefulWidget {
@@ -12,30 +13,105 @@ class Contact extends StatefulWidget {
 
 class _ContactState extends State<Contact> {
   bool temp_image = false;
+  XFile? image;
+  final ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.black,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  actions: [
+                    TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.red)),
+                        onPressed: () {},
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.green)),
+                        onPressed: () {},
+                        child: Text("Save",style: TextStyle(color: Colors.white),)),
+                  ],
+                  content: Text("Are you sure this contact is save "),
+                );
+              },
+            );
+          },
+          icon: Icon(
+            Icons.save,
+            color: Colors.white,
+          ),
+          label: Text(
+            'Save data',
+            style: TextStyle(color: Colors.white),
+          )),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          InkWell(
-            onTap: () {
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      actions: [
+                        TextButton(
+                            onPressed: () async {
+                              image = await picker.pickImage(
+                                  source: ImageSource.camera);
+                              Navigator.pop(context);
+                              setState(() {
 
-              setState(() {});
-            },
-            child: Container(
-                height: 100,
-                width: 100,
-                decoration: (temp_image)
-                    ? BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 2, color: Colors.black),
-                        image: DecorationImage(image: FileImage(File(""))))
-                    : BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 2, color: Colors.black),
-                        image: DecorationImage(
-                            image: AssetImage("image/Unknown.png")))),
+                              });
+                            },
+                            child: Text("Camera")),
+                        TextButton(
+                            onPressed: () async {
+                              image = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              Navigator.pop(context);
+                              setState(() {
+
+                              });
+
+                            },
+                            child: Text("gallary")),
+                      ],
+                      content: Text("Upload your pic.."),
+                    );
+                  },
+                );
+                setState(() {});
+              },
+              child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: (image != null)
+                      ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(width: 2, color: Colors.black),
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: FileImage(File("${image!.path}"))))
+                      : BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(width: 2, color: Colors.black),
+                          image: DecorationImage(
+                              image: AssetImage("image/Unknown.png")))),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -70,7 +146,8 @@ class _ContactState extends State<Contact> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IntlPhoneField(
-              decoration: InputDecoration(prefixIcon: Icon(Icons.phone),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.phone),
                 labelText: 'Phone Number',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(),
