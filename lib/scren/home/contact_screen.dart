@@ -20,7 +20,7 @@ class _ContactState extends State<Contact> {
         children: [
           InkWell(
             onTap: () {
-              temp_image = true;
+
               setState(() {});
             },
             child: Container(
